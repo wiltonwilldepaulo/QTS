@@ -27,20 +27,29 @@
                                     <!-- form start -->
                                     <form name="form" method="post" id="form">
                                         <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="cnpj">CPF | CNPJ</label>
-                                                <input required type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Qual seu CPfou CNPJ?">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <?php include_once "alerta.php"; ?>
+                                                </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="nome_fantasia">Nome | Nome fantasia</label>
+                                                <label for="cnpj">CPF | CNPJ *</label>
+                                                <input required type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Qual seu CPf ou CNPJ?">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rg_ie">RG | IE *</label>
+                                                <input required type="text" name="rg_ie" class="form-control" id="rg_ie" placeholder="Qual seu RG ou IE?">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nome_fantasia">Nome | Nome fantasia *</label>
                                                 <input required type="text" name="nome_fantasia" class="form-control" id="nome_fantasia" placeholder="Qual seu nome?">
                                             </div>
                                             <div class="form-group">
-                                                <label for="razao_social">Sobre nome | Razão social</label>
+                                                <label for="razao_social">Sobre nome | Razão social *</label>
                                                 <input required type="text" name="razao_social" class="form-control" id="razao_social" placeholder="Qual seu sobre nome ou razão social?">
                                             </div>
                                             <div class="form-group">
-                                                <label for="data_inicio_atividade">Nascimento | Fundação</label>
+                                                <label for="data_inicio_atividade">Nascimento | Fundação *</label>
                                                 <input required type="text" name="data_inicio_atividade" class="form-control" id="data_inicio_atividade" placeholder="Qual sua data?">
                                             </div>
                                         </div>

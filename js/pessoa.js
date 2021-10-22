@@ -88,7 +88,7 @@ $(document).ready(function () {
                 method: "POST",
                 mode: "cors",
                 cache: "default",
-                body: formData 
+                body: formData
             }
             //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
             fetch(`controlepessoa.php`, options)
