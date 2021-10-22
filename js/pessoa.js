@@ -19,64 +19,86 @@ const showData = (result) => {
 //SELECIONAMOS O CPNJ PARA EFETUAR A BUSCA PELO DADOS CADASTRAIS DA EMPRESA
 cnpj.addEventListener("blur", (e) => {
     let search = cnpj.value.replace("-", "").replace(".", "").replace("/", "");
-    const options = {
-        method: "GET",
-        mode: "cors",
-        cache: "default"
+    //contamos a quantidade de caracteres
+    if (search.length > 10) {
+        const options = {
+            method: "GET",
+            mode: "cors",
+            cache: "default"
+        }
+        //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
+        fetch(`https://brasilapi.com.br/api/cnpj/v1/${search}`, options)
+            .then(response => {
+                response.json()
+                    .then(data => showData(data))
+            })
+            .catch(e => console.log('Deu erro: ' + e.message()))
     }
-    //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
-    fetch(`https://brasilapi.com.br/api/cnpj/v1/${search}`, options)
-        .then(response => {
-            response.json()
-                .then(data => showData(data))
-        })
-        .catch(e => console.log('Deu erro: ' + e.message()))
 });
 
 $(document).ready(function () {
+    //ADICIONANDO MASCARA DE CPF OU CNPJ DE FORMA DINAMICA.
+    $("#cnpj").inputmask({
+        mask: ['999.999.999-99', '99.999.999/9999-99'],
+        keepStatic: true
+    });
+    //ADICIONAMOS A MASCARA DA DATA
+    $("#data_inicio_atividade").inputmask({
+        mask: '99/99/9999'
+    });
+    //ADICIONAMOS O PLUGIN DE CALENDARIO
+    $('#data_inicio_atividade').datepicker({
+        language: "pt-BR",
+        autoclose: true
+    });
 
-    $(function () {
-        $.validator.setDefaults({
-            submitHandler: function () {
-                alert("Form successful submitted!");
+    //CONFIGURAÇÕES DOS PARAMENTRO DE VALIDAÇÃO DO FORMULÁRIO
+    $('#form').validate({
+        rules: {
+            edtimagems: {
+                required: true,
+                file: true,
+            },
+            agree: "required"
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    //MAPEAMOS O EVENTO DE CLICK DO BOTÃO
+    $("#btnsalvar").click(function (e) {
+        e.preventDefault();
+        //RECEBEMOS O RESULTADO DA VALIDAÇÃO DO FORMULARIO
+        let valida = $('#form').valid();
+        //SELECIONAMOS O FORMULÁRIO
+        const form = document.querySelector("#form");
+        //TRANSFORMAMOS OS DADOS DO FORM EM UM ARRAY
+        let formData = new FormData(form);
+        // let acao = document.getElementById("edtacao");
+        if (valida == true) {
+            const options = {
+                method: "POST",
+                mode: "cors",
+                cache: "default",
+                body: formData 
             }
-        });
-        $('#quickForm').validate({
-            rules: {
-                email: {
-                    required: true,
-                    email: true,
-                },
-                password: {
-                    required: true,
-                    minlength: 5
-                },
-                terms: {
-                    required: true
-                },
-            },
-            messages: {
-                email: {
-                    required: "Please enter a email address",
-                    email: "Please enter a vaild email address"
-                },
-                password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long"
-                },
-                terms: "Please accept our terms"
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
+            //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
+            fetch(`controlepessoa.php`, options)
+                .then(response => {
+                    response.json()
+                        .then(data => {
+                            alert(data);
+                        })
+                })
+                .catch(e => console.log('Deu erro: ' + e.message()))
+        }
     });
 });

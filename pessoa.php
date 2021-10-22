@@ -25,23 +25,23 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
-                                    <form id="form">
+                                    <form name="form" method="post" id="form">
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="cnpj">CPF | CNPJ</label>
-                                                <input type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Qual seu CPfou CNPJ?">
+                                                <input required type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Qual seu CPfou CNPJ?">
                                             </div>
                                             <div class="form-group">
                                                 <label for="nome_fantasia">Nome | Nome fantasia</label>
-                                                <input type="text" name="nome_fantasia" class="form-control" id="nome_fantasia" placeholder="Qual seu nome?">
+                                                <input required type="text" name="nome_fantasia" class="form-control" id="nome_fantasia" placeholder="Qual seu nome?">
                                             </div>
                                             <div class="form-group">
                                                 <label for="razao_social">Sobre nome | Razão social</label>
-                                                <input type="text" name="razao_social" class="form-control" id="razao_social" placeholder="Qual seu sobre nome ou razão social?">
+                                                <input required type="text" name="razao_social" class="form-control" id="razao_social" placeholder="Qual seu sobre nome ou razão social?">
                                             </div>
                                             <div class="form-group">
-                                                <label for="data_situacao_cadastral">Nascimento | Fundação</label>
-                                                <input type="text" name="data_situacao_cadastral" class="form-control" id="data_situacao_cadastral" placeholder="Qual sua data?">
+                                                <label for="data_inicio_atividade">Nascimento | Fundação</label>
+                                                <input required type="text" name="data_inicio_atividade" class="form-control" id="data_inicio_atividade" placeholder="Qual sua data?">
                                             </div>
                                         </div>
                                         <!-- /.card-body -->
