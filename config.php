@@ -13,10 +13,17 @@ $modulo = Url::getURL(0);
 date_default_timezone_set('America/Porto_Velho');
 function dateConvert($dateSql)
 {
-    $ano = substr($dateSql, 6);
-    $mes = substr($dateSql, 3, -5);
-    $dia = substr($dateSql, 0, -8);
+    $ano = substr($dateSql, 0, 4);
+    $mes = substr($dateSql, 5, 2);
+    $dia = substr($dateSql, 8, 2);
     return $ano . "-" . $mes . "-" . $dia;
+}
+function dateConvertBr($dateSql)
+{
+    $ano = substr($dateSql, 0, 4);
+    $mes = substr($dateSql, 5, 2);
+    $dia = substr($dateSql, 8, 2);
+    return $dia . "/" . $mes . "/" . $ano;
 }
 //constantes do projeto
 define('EMAIL', [

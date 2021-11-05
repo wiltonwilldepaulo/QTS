@@ -25,13 +25,22 @@ class Pessoa extends Crud
         $stmt->bindValue(':rg_ie', $this->rg_ie, PDO::PARAM_STR);
         $stmt->bindValue(':nascimento_fundacao', $this->nascimento_fundacao, PDO::PARAM_STR);
         if ($stmt->execute()) :
-            return "true";
+            return true;
         else :
-            return "false";
+            return false;
         endif;
     }
     public function deleta($id)
     {
+        $sql = "DELETE FROM $this->tabela WHERE idpessoa = :ID";
+        var_dump($sql);
+        $stmt = Conexao::prepare($sql);
+        $stmt->bindParam(':ID', $id);
+        if ($stmt->execute()) {
+            return "true";
+        } else {
+            return "false";
+        }
     }
     public function update($campo, $id)
     {

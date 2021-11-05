@@ -1,3 +1,42 @@
+function deleta(id) {
+    //SELECIONAMOS O FORMULÁRIO
+    const form = document.querySelector("#form");
+    //TRANSFORMAMOS OS DADOS DO FORM EM UM ARRAY
+    let formData = new FormData(form);
+    // let acao = document.getElementById("edtacao");
+    const options = {
+        method: "POST",
+        mode: "cors",
+        cache: "default",
+        body: formData
+    }
+    //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
+    fetch(`controlepessoa.php`, options)
+        .then(response => {
+            response.json()
+                .then(data => remover(data, id))
+        })
+        .catch(e => console.log('Deu erro: ' + e.message()))
+
+}
+
+//VALIDA O RESULTADO DE RETORNO DO CADASTRO.
+const validaRetorno = (result) => {
+    //CASO O CADASTRO TENHA RETORNADO SUCESSO!
+    if (result == true) {
+        $('html, body').animate({ scrollTop: 0 }, 300);
+        alerta(0, 'Cadastro realizado com sucesso!', 'Sucesso!', 'https://localhost/listapessoa');
+
+    } else {
+        $('html, body').animate({ scrollTop: 0 }, 300);
+        alerta(1, 'Falha no cadastro!', 'Falha!', 'https://localhost/pessoa');
+    }
+}
+//RECEBEMOS O RETORNO DO ITEM EXCLUIR.
+const remover = (result, id) => {
+
+}
+
 //SELECIONAMOS O CNPJ
 const cnpj = document.querySelector("#cnpj");
 //NESTA FUNÇÃO PERCORREMOS TODAS AS POSIÇÕES DOS CAMPO DO JSON E 
@@ -35,7 +74,6 @@ cnpj.addEventListener("blur", (e) => {
             .catch(e => console.log('Deu erro: ' + e.message()))
     }
 });
-
 $(document).ready(function () {
     //ADICIONANDO MASCARA DE CPF OU CNPJ DE FORMA DINAMICA.
     $("#cnpj").inputmask({
@@ -84,6 +122,7 @@ $(document).ready(function () {
         let formData = new FormData(form);
         // let acao = document.getElementById("edtacao");
         if (valida == true) {
+
             const options = {
                 method: "POST",
                 mode: "cors",
@@ -94,9 +133,7 @@ $(document).ready(function () {
             fetch(`controlepessoa.php`, options)
                 .then(response => {
                     response.json()
-                        .then(data => {
-                            alert(data);
-                        })
+                        .then(data => validaRetorno(data))
                 })
                 .catch(e => console.log('Deu erro: ' + e.message()))
         }

@@ -1,3 +1,16 @@
+<?php
+include_once "config.php";
+
+if (filter_has_var(INPUT_GET, 'id')) :
+    $acao = 'e';
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+    $Pessoa = new Pessoa();
+    $pessoa = $Pessoa->busca('idpessoa', $id);
+else :
+    $acao = 'c';
+    $id = '0';
+endif;
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -5,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Controle pessoa</title>
     <?php include_once "csscadastro.php"; ?>
 </head>
 
@@ -26,6 +39,8 @@
                                     <!-- /.card-header -->
                                     <!-- form start -->
                                     <form name="form" method="post" id="form">
+                                        <input type="hidden" name="edtid" name="edtid" value="<?php echo $id; ?>">
+                                        <input type="hidden" name="edtacao" name="edtacao" value="<?php echo $acao; ?>">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12">
@@ -34,23 +49,35 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="cnpj">CPF | CNPJ *</label>
-                                                <input required type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Qual seu CPf ou CNPJ?">
+                                                <input value="<?php if (isset($pessoa->cpf_cnpj) and !empty($pessoa->cpf_cnpj)) {
+                                                                    echo $pessoa->cpf_cnpj;
+                                                                } ?>" required type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Qual seu CPf ou CNPJ?">
                                             </div>
                                             <div class="form-group">
                                                 <label for="rg_ie">RG | IE *</label>
-                                                <input required type="text" name="rg_ie" class="form-control" id="rg_ie" placeholder="Qual seu RG ou IE?">
+                                                <input value="<?php if (isset($pessoa->rg_ie) and !empty($pessoa->rg_ie)) {
+                                                                    echo $pessoa->rg_ie;
+                                                                } ?>" required type="text" name="rg_ie" class="form-control" id="rg_ie" placeholder="Qual seu RG ou IE?">
                                             </div>
                                             <div class="form-group">
                                                 <label for="nome_fantasia">Nome | Nome fantasia *</label>
-                                                <input required type="text" name="nome_fantasia" class="form-control" id="nome_fantasia" placeholder="Qual seu nome?">
+                                                <input value="<?php if (isset($pessoa->nome_fatasia) and !empty($pessoa->nome_fatasia)) {
+                                                                    echo $pessoa->nome_fatasia;
+                                                                } ?>" value="<?php if (isset($pessoa->rg_ie) and !empty($pessoa->rg_ie)) {
+                                                                                    echo $pessoa->cpf_cnpj;
+                                                                                } ?>" required type="text" name="nome_fantasia" class="form-control" id="nome_fantasia" placeholder="Qual seu nome?">
                                             </div>
                                             <div class="form-group">
                                                 <label for="razao_social">Sobre nome | Razão social *</label>
-                                                <input required type="text" name="razao_social" class="form-control" id="razao_social" placeholder="Qual seu sobre nome ou razão social?">
+                                                <input value="<?php if (isset($pessoa->sobrenome_razao) and !empty($pessoa->sobrenome_razao)) {
+                                                                    echo $pessoa->sobrenome_razao;
+                                                                } ?>" required type="text" name="razao_social" class="form-control" id="razao_social" placeholder="Qual seu sobre nome ou razão social?">
                                             </div>
                                             <div class="form-group">
                                                 <label for="data_inicio_atividade">Nascimento | Fundação *</label>
-                                                <input required type="text" name="data_inicio_atividade" class="form-control" id="data_inicio_atividade" placeholder="Qual sua data?">
+                                                <input value="<?php if (isset($pessoa->nascimento_fundacao) and !empty($pessoa->nascimento_fundacao)) {
+                                                                    echo dateConvertBr($pessoa->nascimento_fundacao);
+                                                                } ?>" required type="text" name="data_inicio_atividade" class="form-control" id="data_inicio_atividade" placeholder="Qual sua data?">
                                             </div>
                                         </div>
                                         <!-- /.card-body -->
@@ -75,6 +102,7 @@
         </div>
     </div>
     <?php include_once "scriptcadastro.php"; ?>
+    <script src="js/alerta.js"></script>
     <script src="js/pessoa.js"></script>
 </body>
 
