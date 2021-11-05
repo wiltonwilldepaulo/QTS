@@ -1,4 +1,7 @@
-function deleta(id) {
+function find(url, opt) {
+    return fetch(url, opt);
+}
+async function deleta(id) {
     //SELECIONAMOS O FORMULÁRIO
     const form = document.querySelector("#form");
     //TRANSFORMAMOS OS DADOS DO FORM EM UM ARRAY
@@ -10,6 +13,11 @@ function deleta(id) {
         cache: "default",
         body: formData
     }
+    find('', '').then(data => {
+
+    }).catch(err => {
+
+    })
     //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
     fetch(`controlepessoa.php`, options)
         .then(response => {
