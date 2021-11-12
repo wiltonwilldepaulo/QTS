@@ -9,6 +9,9 @@ function alerta(status, mensagem, titulo, link) {
     if (status == 1) {
         document.getElementById("alerta").className = 'callout callout-danger';
     }
+    if (status == 2) {
+        document.getElementById("alerta").className = 'callout callout-primary';
+    }
     setTimeout(() => {
         document.getElementById("alerta").className = 'callout callout-warning';
         document.getElementById("titulo").innerHTML = 'Atenção!';

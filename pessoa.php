@@ -6,6 +6,11 @@ if (filter_has_var(INPUT_GET, 'id')) :
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
     $Pessoa = new Pessoa();
     $pessoa = $Pessoa->busca('idpessoa', $id);
+    //CASO A PESSOA NÃO EXISTA NO BANCO DE DADOS, O RETORNO SERÁ FALSO
+    if (!$pessoa) :
+        //CASO NÃO EXISTA O REGITRO NO BANCO REDIRECIONAMOS PARA PAGINA DE CADASTRO
+        echo "<script>window.location.replace('pessoa')</script>";
+    endif;
 else :
     $acao = 'c';
     $id = '0';
@@ -23,7 +28,23 @@ endif;
 </head>
 
 <body>
-    <div class="container">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Controle de pessoa</h1><br>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="https://localhost">Início</a></li>
+                        <li class="breadcrumb-item"><a href="https://localhost/listapessoa">Listagem</a></li>
+                        <li class="breadcrumb-item active">Listagem</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <section class="content">

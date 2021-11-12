@@ -1,9 +1,10 @@
 function find(url, opt) {
     return fetch(url, opt);
 }
-async function deleta(id) {
+function deleta(id) {
+    document.getElementById("edtid").value = id;
     //SELECIONAMOS O FORMULÁRIO
-    const form = document.querySelector("#form");
+    const form = document.querySelector("#pessoa");
     //TRANSFORMAMOS OS DADOS DO FORM EM UM ARRAY
     let formData = new FormData(form);
     // let acao = document.getElementById("edtacao");
@@ -13,19 +14,15 @@ async function deleta(id) {
         cache: "default",
         body: formData
     }
-    find('', '').then(data => {
-
-    }).catch(err => {
-
-    })
-    //PESQUISAMOS OS DADOS DA EMPRESA BRASIL API
-    fetch(`controlepessoa.php`, options)
+    find(`https://localhost/controlepessoa.php`, options)
         .then(response => {
             response.json()
-                .then(data => remover(data, id))
+                .then(data => {
+                    $("#listapessoa" + id).remove();
+                })
+        }).catch(err => {
+            console.log(err);
         })
-        .catch(e => console.log('Deu erro: ' + e.message()))
-
 }
 
 //VALIDA O RESULTADO DE RETORNO DO CADASTRO.
@@ -44,6 +41,8 @@ const validaRetorno = (result) => {
 const remover = (result, id) => {
 
 }
+
+const salvar = document.querySelector("#btnsalvar");
 
 //SELECIONAMOS O CNPJ
 const cnpj = document.querySelector("#cnpj");
@@ -130,7 +129,7 @@ $(document).ready(function () {
         let formData = new FormData(form);
         // let acao = document.getElementById("edtacao");
         if (valida == true) {
-
+            alerta(2, 'Salvando aguarde!', 'Salvando!', 'https://localhost/listapessoa');
             const options = {
                 method: "POST",
                 mode: "cors",

@@ -7,7 +7,7 @@ class Pessoa extends Crud
     private string $nome_fansia;
     private string $sobrenome_razao;
     private string $cpf_cnpj;
-    private string $rg_ie;
+    private string $rg_ie; 
     private string $nascimento_fundacao;
     protected $tabela = 'pessoa';
     /**
@@ -33,7 +33,6 @@ class Pessoa extends Crud
     public function deleta($id)
     {
         $sql = "DELETE FROM $this->tabela WHERE idpessoa = :ID";
-        var_dump($sql);
         $stmt = Conexao::prepare($sql);
         $stmt->bindParam(':ID', $id);
         if ($stmt->execute()) {

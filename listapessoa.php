@@ -1,5 +1,5 @@
 <?
-include_once 'config.php';
+include_once './config.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,6 +14,26 @@ include_once 'config.php';
 </head>
 
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="confirma" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Atenção!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir o registro?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"> </i> Fechar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleta(document.getElementById('edtid').value);"><i class="fas fa-trash"> </i> Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -29,8 +49,9 @@ include_once 'config.php';
             </div>
         </div>
     </div>
-    <form id="proprio" name="proprio" method="post">
-        <input type="hidden" name="edtacao" name="edtacao" value="d">
+    <form id="pessoa" name="pessoa" method="post">
+        <input type="hidden" id="edtacao" name="edtacao" value="d">
+        <input type="hidden" id="edtid" name="edtid">
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -64,7 +85,7 @@ include_once 'config.php';
                                         $Pessoa = new Pessoa();
                                         foreach ($Pessoa->buscatudo() as $key => $value) :
                                         ?>
-                                            <tr id="<?php echo $value->idpessoa; ?>">
+                                            <tr id="listapessoa<?php echo $value->idpessoa; ?>">
                                                 <td><?php echo $value->nome_fatasia; ?></td>
                                                 <td><?php echo $value->sobrenome_razao; ?></td>
                                                 <td><?php echo $value->cpf_cnpj; ?></td>
@@ -74,7 +95,7 @@ include_once 'config.php';
                                                     <a href="https://localhost/pessoa?id=<?php echo $value->idpessoa; ?>" class="btn btn-warning">
                                                         <i class="fas fa-edit"> </i> Editar
                                                     </a>
-                                                    <button type="button" onclick="deleta(<?php echo $value->idpessoa; ?>);" name="btnexcluuir" id="btnexcluuir" class="btn btn-danger">
+                                                    <button type="button" onclick="document.getElementById('edtid').value = <?php echo $value->idpessoa; ?>;" name="btnexcluuir" id="btnexcluuir" class="btn btn-danger" data-toggle="modal" data-target="#confirma">
                                                         <i class="fas fa-trash"> </i> Excluir
                                                     </button>
                                                 </td>
@@ -91,6 +112,7 @@ include_once 'config.php';
         </section>
     </form>
     <?php include_once 'scriptlistagem.php'; ?>
+    <script src="js/pessoa.js"></script>
 </body>
 
 </html>
