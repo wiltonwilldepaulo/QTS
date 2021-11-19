@@ -61,7 +61,7 @@ endif;
                                     <!-- form start -->
                                     <form name="form" method="post" id="form">
                                         <input type="hidden" name="edtid" name="edtid" value="<?php echo $id; ?>">
-                                        <input type="hidden" name="edtacao" name="edtacao" value="<?php echo $acao; ?>">
+                                        <input type="text" name="edtacao" name="edtacao" value="<?php echo $acao; ?>">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12">
