@@ -13,9 +13,9 @@ $modulo = Url::getURL(0);
 date_default_timezone_set('America/Porto_Velho');
 function dateConvert($dateSql)
 {
-    $ano = substr($dateSql, 0, 4);
-    $mes = substr($dateSql, 5, 2);
-    $dia = substr($dateSql, 8, 2);
+    $ano = substr($dateSql, 6, 4);
+    $mes = substr($dateSql, 3, 2);
+    $dia = substr($dateSql, 0, 2);
     return $ano . "-" . $mes . "-" . $dia;
 }
 function dateConvertBr($dateSql)

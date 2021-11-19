@@ -7,7 +7,7 @@ class Pessoa extends Crud
     private string $nome_fansia;
     private string $sobrenome_razao;
     private string $cpf_cnpj;
-    private string $rg_ie; 
+    private string $rg_ie;
     private string $nascimento_fundacao;
     protected $tabela = 'pessoa';
     /**
@@ -24,11 +24,15 @@ class Pessoa extends Crud
         $stmt->bindValue(':cpf_cnpj', $this->cpf_cnpj, PDO::PARAM_STR);
         $stmt->bindValue(':rg_ie', $this->rg_ie, PDO::PARAM_STR);
         $stmt->bindValue(':nascimento_fundacao', $this->nascimento_fundacao, PDO::PARAM_STR);
-        if ($stmt->execute()) :
-            return true;
-        else :
-            return false;
-        endif;
+        try {
+            if ($stmt->execute()) :
+                return true;
+            else :
+                return false;
+            endif;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
     }
     public function deleta($id)
     {
@@ -43,6 +47,23 @@ class Pessoa extends Crud
     }
     public function update($campo, $id)
     {
+        $sql  = "UPDATE $this->tabela SET nome_fatasia = :nome_fatasia, sobrenome_razao = :sobrenome_razao, cpf_cnpj = :cpf_cnpj, rg_ie = :rg_ie, nascimento_fundacao = :nascimento_fundacao WHERE $campo = :ID";
+        $stmt = Conexao::prepare($sql);
+        $stmt->bindValue(':nome_fatasia', $this->nome_fansia, PDO::PARAM_STR);
+        $stmt->bindValue(':sobrenome_razao', $this->sobrenome_razao, PDO::PARAM_STR);
+        $stmt->bindValue(':cpf_cnpj', $this->cpf_cnpj, PDO::PARAM_STR);
+        $stmt->bindValue(':rg_ie', $this->rg_ie, PDO::PARAM_STR);
+        $stmt->bindValue(':nascimento_fundacao', $this->nascimento_fundacao, PDO::PARAM_STR);
+        $stmt->bindValue(':ID', $id);
+        try {
+            if ($stmt->execute()) :
+                return true;
+            else :
+                return false;
+            endif;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
     }
     /**
      * Selecionamos o valor que esta armazenado no atributo nome.

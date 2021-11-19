@@ -31,8 +31,8 @@ if (isset($_POST) and !empty($_POST)) :
                 //CASO A AÇÃO CAPTURADA SEJA "d" IREMOS EDITAR.
                 $dados = $Pessoa->update("idpessoa", $id);
                 echo $dados;
-            } catch (PDOException $th) {
-                echo "false";
+            } catch (PDOException $e) {
+                var_dump($e->getMessage());
             }
             break;
         case 'd':

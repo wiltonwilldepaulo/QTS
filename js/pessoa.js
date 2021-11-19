@@ -129,7 +129,7 @@ $(document).ready(function () {
         let formData = new FormData(form);
         // let acao = document.getElementById("edtacao");
         if (valida == true) {
-            alerta(2, 'Salvando aguarde!', 'Salvando!', 'https://localhost/listapessoa');
+            //alerta(2, 'Salvando aguarde!', 'Salvando!', 'https://localhost/listapessoa');
             const options = {
                 method: "POST",
                 mode: "cors",
